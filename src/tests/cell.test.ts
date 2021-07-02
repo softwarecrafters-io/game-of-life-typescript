@@ -10,10 +10,18 @@ enum CellStatus {
 }
 
 class Cell {
-	constructor(status: CellStatus) {}
+	constructor(private status: CellStatus) {}
 
 	regenerate(numberOfNeighbours: number) {
-		return CellStatus.Dead;
+		if (this.status === CellStatus.Alive) {
+			if (numberOfNeighbours === 2 || numberOfNeighbours === 3) {
+				return CellStatus.Alive;
+			} else {
+				return CellStatus.Dead;
+			}
+		} else {
+			return CellStatus.Dead;
+		}
 	}
 }
 
@@ -25,5 +33,6 @@ describe('In the game of life', () => {
 	it('any live cell with two or three live neighbours lives on to the next generation', () => {
 		expect(new Cell(CellStatus.Alive).regenerate(2)).toBe(CellStatus.Alive);
 		expect(new Cell(CellStatus.Alive).regenerate(3)).toBe(CellStatus.Alive);
+		expect(new Cell(CellStatus.Dead).regenerate(2)).toBe(CellStatus.Dead);
 	});
 });
