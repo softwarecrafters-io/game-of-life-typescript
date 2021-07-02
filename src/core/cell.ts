@@ -7,17 +7,18 @@ export class Cell {
 	constructor(private status: CellStatus) {}
 
 	regenerate(numberOfNeighbours: number) {
-		if (this.status === CellStatus.Alive) {
-			if (numberOfNeighbours === 2 || numberOfNeighbours === 3) {
-				return CellStatus.Alive;
-			} else {
-				return CellStatus.Dead;
-			}
-		} else {
-			if (numberOfNeighbours === 3) {
-				return CellStatus.Alive;
-			}
-			return CellStatus.Dead;
-		}
+		return this.status === CellStatus.Alive
+			? this.statusForAliveCell(numberOfNeighbours)
+			: this.statusForDeadCell(numberOfNeighbours);
+	}
+
+	private statusForDeadCell(numberOfNeighbours: number) {
+		const isFertilePopulation = numberOfNeighbours === 3;
+		return isFertilePopulation ? CellStatus.Alive : CellStatus.Dead;
+	}
+
+	private statusForAliveCell(numberOfNeighbours: number) {
+		const isStablePopulation = numberOfNeighbours === 2 || numberOfNeighbours === 3;
+		return isStablePopulation ? CellStatus.Alive : CellStatus.Dead;
 	}
 }
