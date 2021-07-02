@@ -1,32 +1,4 @@
-/*
-any live cell with fewer than two live neighbours dies, as if by underpopulation
-any live cell with two or three live neighbours lives on to the next generation
-any live cell with more than three live neighbours dies, as if by overpopulation
-any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction
-*/
-enum CellStatus {
-	Dead,
-	Alive,
-}
-
-class Cell {
-	constructor(private status: CellStatus) {}
-
-	regenerate(numberOfNeighbours: number) {
-		if (this.status === CellStatus.Alive) {
-			if (numberOfNeighbours === 2 || numberOfNeighbours === 3) {
-				return CellStatus.Alive;
-			} else {
-				return CellStatus.Dead;
-			}
-		} else {
-			if (numberOfNeighbours === 3) {
-				return CellStatus.Alive;
-			}
-			return CellStatus.Dead;
-		}
-	}
-}
+import { Cell, CellStatus } from '../core/cell';
 
 describe('In the game of life', () => {
 	it('any live cell with fewer than two live neighbours dies, as if by underpopulation', () => {
