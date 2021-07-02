@@ -4,7 +4,11 @@ export enum CellStatus {
 }
 
 export class Cell {
-	constructor(private status: CellStatus) {}
+	constructor(private status: CellStatus) {
+		if (status == null) {
+			throw new Error('Invalid status');
+		}
+	}
 
 	regenerate(numberOfNeighbours: number) {
 		return new Cell(
