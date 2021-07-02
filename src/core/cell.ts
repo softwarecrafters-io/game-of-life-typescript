@@ -7,9 +7,11 @@ export class Cell {
 	constructor(private status: CellStatus) {}
 
 	regenerate(numberOfNeighbours: number) {
-		return this.status === CellStatus.Alive
-			? this.statusForAliveCell(numberOfNeighbours)
-			: this.statusForDeadCell(numberOfNeighbours);
+		return new Cell(
+			this.status === CellStatus.Alive
+				? this.statusForAliveCell(numberOfNeighbours)
+				: this.statusForDeadCell(numberOfNeighbours)
+		);
 	}
 
 	private statusForDeadCell(numberOfNeighbours: number) {
@@ -20,5 +22,9 @@ export class Cell {
 	private statusForAliveCell(numberOfNeighbours: number) {
 		const isStablePopulation = numberOfNeighbours === 2 || numberOfNeighbours === 3;
 		return isStablePopulation ? CellStatus.Alive : CellStatus.Dead;
+	}
+
+	isAlive() {
+		return this.status === CellStatus.Alive;
 	}
 }
