@@ -4,7 +4,7 @@ export enum CellStatus {
 }
 
 export class Cell {
-	constructor(private status: CellStatus) {}
+	constructor(private readonly status: CellStatus) {}
 
 	static create(status: CellStatus) {
 		if (status == null) {
